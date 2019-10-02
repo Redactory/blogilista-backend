@@ -5,6 +5,9 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
+const config = require('./utils/config');
+const server = http.createServer(app);
+
 const blogSchema = mongoose.Schema({
   title: String,
   author: String,
@@ -38,7 +41,6 @@ app.post('/api/blogs', (request, response) => {
     })
 })
 
-const PORT = 3003
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+server.listen(config.PORT, () => {
+    console.log(`Server running on port ${config.PORT}`)    
 })
