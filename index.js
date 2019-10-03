@@ -3,22 +3,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose');
-
-const config = require('./utils/config');
 const server = http.createServer(app);
 
-const blogSchema = mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number
-});
+const config = require('./utils/config');
+const Blog = require('./models/blog');
 
-const Blog = mongoose.model('Blog', blogSchema);
-
-const mongoUrl = 'mongodb+srv://Teemu:DBuser@puhelinluettelodb-hlufo.mongodb.net/bloglist?retryWrites=true&w=majority';
-mongoose.connect(mongoUrl, { useNewUrlParser: true });
 
 app.use(cors());
 app.use(bodyParser.json());
