@@ -23,6 +23,8 @@ module.exports = {
       'error',
       'windows'
   ],
-  "eqeqeq": "error"
+  "eqeqeq": "error",
+  "no-console": 0
   },
+  
 };
