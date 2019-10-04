@@ -26,7 +26,7 @@ describe('number of likes', () => {
   });
 });
 
-describe('most likes', () => {
+describe('favoriteBlog', () => {
   test('there one most liked blog', () => {
     const shouldBe = {
       title: 'Canonical string reduction',
@@ -34,7 +34,7 @@ describe('most likes', () => {
       likes: 12,
     };
 
-    const result = listHelper.mostLikes(Blogs.allBlogs);
+    const result = listHelper.favoriteBlog(Blogs.allBlogs);
     expect(result).toEqual(shouldBe);
   });
 
@@ -45,14 +45,14 @@ describe('most likes', () => {
       likes: 12,
     };
 
-    const result = listHelper.mostLikes(Blogs.listWithTwoMostLiked);
+    const result = listHelper.favoriteBlog(Blogs.listWithTwoMostLiked);
     expect(result).toEqual(shouldBe);
   });
 
   test('blog list is empty', () => {
     const shouldBe = {};
 
-    const result = listHelper.mostLikes(Blogs.emptyBlogList);
+    const result = listHelper.favoriteBlog(Blogs.emptyBlogList);
     expect(result).toEqual(shouldBe);
   });
 
@@ -63,7 +63,7 @@ describe('most likes', () => {
       likes: 7,
     };
 
-    const result = listHelper.mostLikes(Blogs.oneBlogList);
+    const result = listHelper.favoriteBlog(Blogs.oneBlogList);
     expect(result).toEqual(shouldBe);
   });
 });
