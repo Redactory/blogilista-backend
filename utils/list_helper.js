@@ -65,9 +65,38 @@ const mostBlogs = (blogs) => {
   return mostProlificAuthor;
 };
 
+const mostLikes = (blogs) => {
+  const bloggers = new Map();
+  const mostLikedAuthor = {
+    author: '',
+    likes: -1,
+  };
+
+  for (let i = 0; i < blogs.length; i++) {
+    const likes = bloggers.get(blogs[i].author);
+    if (typeof likes === 'undefined') {
+      bloggers.set(blogs[i].author, blogs[i].likes);
+      if (mostLikedAuthor.likes < blogs[i].likes) {
+        mostLikedAuthor.likes = blogs[i].likes;
+        mostLikedAuthor.author = blogs[i].author;
+      }
+    } else {
+      const likeCounter = likes + blogs[i].likes;
+      bloggers.set(blogs[i].author, likeCounter);
+      if (mostLikedAuthor.likes < likeCounter) {
+        mostLikedAuthor.likes = likeCounter;
+        mostLikedAuthor.author = blogs[i].author;
+      }
+    }
+  }
+
+  return mostLikedAuthor;
+};
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 };

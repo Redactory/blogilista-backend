@@ -103,7 +103,7 @@ const listWithTwoMostBlogged = [
     title: 'Kokeilu',
     author: 'Teemu Matvejeff',
     url: 'http://hs.fi',
-    likes: 10,
+    likes: 12,
     __v: 0,
   },
   {
@@ -127,7 +127,7 @@ const listWithTwoMostBlogged = [
     title: 'TDD harms architecture',
     author: 'Robert C. Martin',
     url: 'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
-    likes: 0,
+    likes: 12,
     __v: 0,
   },
 ];

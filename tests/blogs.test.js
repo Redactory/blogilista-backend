@@ -109,3 +109,45 @@ describe('most blogs', () => {
     expect(result).toEqual(shouldBe);
   });
 });
+
+describe('most likes', () => {
+  test('Test with full list', () => {
+    const shouldBe = {
+      author: 'Edsger W. Dijkstra',
+      likes: 17,
+    };
+
+    const result = listHelper.mostLikes(Blogs.allBlogs);
+    expect(result).toEqual(shouldBe);
+  });
+
+  test('test with one element list', () => {
+    const shouldBe = {
+      author: "Michael Chan",
+      likes: 7,
+    };
+
+    const result = listHelper.mostLikes(Blogs.oneBlogList);
+    expect(result).toEqual(shouldBe);
+  });
+
+  test('test with empty list', () => {
+    const shouldBe = {
+      author: "",
+      likes: -1,
+    };
+
+    const result = listHelper.mostLikes(Blogs.emptyBlogList);
+    expect(result).toEqual(shouldBe);
+  });
+
+  test('test with list of two most blogged', () => {
+    const shouldBe = {
+      author: "Teemu Matvejeff",
+      likes: 24,
+    };
+
+    const result = listHelper.mostLikes(Blogs.listWithTwoMostBlogged);
+    expect(result).toEqual(shouldBe);
+  });
+});
