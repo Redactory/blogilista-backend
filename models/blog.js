@@ -1,7 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 const mongoose = require('mongoose');
+const config = require('../utils/config');
 
-const url = process.env.MONGODB_URI;
+const url = config.MONGODB_URI;
 
 mongoose
   .connect(url, { useNewUrlParser: true })
@@ -9,7 +10,7 @@ mongoose
     console.log('Database connection created successfully');
   })
   .catch((error) => {
-    console.log('Error in forming connection with the database', error.message)
+    console.log('Error in forming connection with the database', error.message);
   });
 
 const blogSchema = new mongoose.Schema({

@@ -1,6 +1,11 @@
 /* eslint-disable no-undef */
+const supertest = require('supertest');
+const mongoose = require('mongoose');
 const Blogs = require('./test_data');
 const listHelper = require('../utils/list_helper');
+const app = require('../app');
+
+const api = supertest(app);
 
 test('dummy returns one', () => {
   const blogs = [];
