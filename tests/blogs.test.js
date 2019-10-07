@@ -71,7 +71,7 @@ describe('favoriteBlog', () => {
 describe('most blogs', () => {
   test('test with list of many blogs,', () => {
     const shouldBe = {
-      author: "Robert C. Martin",
+      author: 'Robert C. Martin',
       blogs: 3,
     };
 
@@ -81,7 +81,7 @@ describe('most blogs', () => {
 
   test('test with list of two most blogged', () => {
     const shouldBe = {
-      author: "Teemu Matvejeff",
+      author: 'Teemu Matvejeff',
       blogs: 2,
     };
 
@@ -91,7 +91,7 @@ describe('most blogs', () => {
 
   test('test with one element list', () => {
     const shouldBe = {
-      author: "Michael Chan",
+      author: 'Michael Chan',
       blogs: 1,
     };
 
@@ -123,7 +123,7 @@ describe('most likes', () => {
 
   test('test with one element list', () => {
     const shouldBe = {
-      author: "Michael Chan",
+      author: 'Michael Chan',
       likes: 7,
     };
 
@@ -133,7 +133,7 @@ describe('most likes', () => {
 
   test('test with empty list', () => {
     const shouldBe = {
-      author: "",
+      author: '',
       likes: -1,
     };
 
@@ -143,7 +143,7 @@ describe('most likes', () => {
 
   test('test with list of two most blogged', () => {
     const shouldBe = {
-      author: "Teemu Matvejeff",
+      author: 'Teemu Matvejeff',
       likes: 24,
     };
 
