@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 const blogsRouter = require('express').Router();
 const Blog = require('./../models/blog');
 
@@ -25,6 +26,23 @@ blogsRouter.post('', async (request, response) => {
   const savedBlog = await blog.save();
 
   response.status(201).json(savedBlog);
+});
+
+blogsRouter.delete('/:id', async (request, response) => {
+  if (isNaN(request.params.id)) {
+    return response.status(400).send({ message: 'Annettavan ID:n pitää olla numero.' });
+  }
+
+  const id = Number(request.params.id);
+
+  const foundBlog = await Blog.find({ id });
+
+  if (foundBlog.length === 0) {
+    return response.status(404).send({ message: 'Poistettavaa blogia ei löydetty.' });
+  }
+
+  await Blog.deleteOne({ id });
+  return response.status(200).send();
 });
 
 module.exports = blogsRouter;

@@ -114,6 +114,54 @@ describe('async/await harjoittelua', () => {
     expect(response.status).toBe(400);
     done();
   });
+
+  test('delete single blog from blog database with appropriate ID', async (done) => {
+    const id = 1;
+    let response = await api
+      .get('/api/blogs');
+
+    let blogCount = response.body.length;
+
+    expect(blogCount).toBe(2);
+
+    await api
+      .delete(`/api/blogs/${id}`);
+
+    response = await api
+      .get('/api/blogs');
+
+    blogCount = response.body.length;
+
+    expect(blogCount).toBe(1);
+
+    const remainingBlog = response.body[0];
+    expect(remainingBlog.title).toEqual('Test_2');
+    expect(remainingBlog.author).toEqual('Jonathan Swein');
+
+    done();
+  });
+
+  test('try to delete blog with invalid ID input', async (done) => {
+    const id = '1a';
+
+    const response = await api
+      .delete(`/api/blogs/${id}`);
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toEqual('Annettavan ID:n pitää olla numero.');
+    done();
+  });
+
+  test('try to delete blog with non-existent ID input', async (done) => {
+    const id = 4;
+
+    const response = await api
+      .delete(`/api/blogs/${id}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('Poistettavaa blogia ei löydetty.');
+    done();
+  });
 });
 
 afterAll(async () => {
