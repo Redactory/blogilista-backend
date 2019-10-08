@@ -2,8 +2,8 @@ POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title": "Test",
-    "author": "Jonathan Swein",
+    "title": "Tieto",
+    "author": "Jonathan Steiner",
     "url": "www.hs.fi",
-    "likes": 2
+    "likes": 20
 }

@@ -12,12 +12,14 @@ const initialBlogs = [
     title: 'Test_1',
     author: 'Jonathan Who',
     url: 'www.hs.fi',
+    likes: 1,
   },
   {
     id: 2,
     title: 'Test_2',
     author: 'Jonathan Swein',
     url: 'www.hs.fi',
+    likes: 3,
   },
 ];
 
@@ -48,6 +50,38 @@ describe('async/await harjoittelua', () => {
 
     expect(response.body[0].id).toBeDefined();
     expect(response.body[1].id).toBeDefined();
+
+    done();
+  });
+
+  test('Test adding new blog to the system', async (done) => {
+    let response = await api
+      .get('/api/blogs');
+
+    let blogCount = response.body.length;
+
+    expect(blogCount).toBe(2);
+
+    let newBlog = {
+      title: 'Uusi blogi',
+      author: 'Sari Suominen',
+      url: 'www.jest.fi',
+    };
+
+    await api
+      .post('/api/blogs', newBlog)
+      .send(newBlog);
+
+    response = await api
+      .get('/api/blogs');
+
+    blogCount = response.body.length;
+    const createdBlog = response.body[2];
+
+    expect(blogCount).toBe(3);
+    expect(createdBlog.title).toEqual('Uusi blogi');
+    expect(createdBlog.author).toEqual('Sari Suominen');
+    expect(createdBlog.url).toEqual('www.jest.fi');
 
     done();
   });
