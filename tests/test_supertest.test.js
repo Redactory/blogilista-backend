@@ -85,6 +85,21 @@ describe('async/await harjoittelua', () => {
 
     done();
   });
+
+  test('Check likes field initialisation', async (done) => {
+    const newBlog = {
+      title: 'Uusi blogi',
+      author: 'Sari Suominen',
+      url: 'www.jest.fi',
+    };
+
+    const response = await api
+      .post('/api/blogs', newBlog)
+      .send(newBlog);
+
+    expect(response.body.likes).toBe(0);
+    done();
+  });
 });
 
 afterAll(async () => {

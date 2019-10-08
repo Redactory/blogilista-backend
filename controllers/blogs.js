@@ -14,6 +14,10 @@ blogsRouter.post('', async (request, response) => {
   const id = Math.floor(Math.random() * max);
   blog.id = id;
 
+  if (typeof blog.likes === 'undefined') {
+    blog.likes = 0;
+  }
+
   const savedBlog = await blog.save();
 
   response.status(201).json(savedBlog);
