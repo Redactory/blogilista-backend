@@ -18,6 +18,10 @@ blogsRouter.post('', async (request, response) => {
     blog.likes = 0;
   }
 
+  if (typeof blog.title === 'undefined' && typeof blog.url === 'undefined') {
+    return response.status(400).send();
+  }
+
   const savedBlog = await blog.save();
 
   response.status(201).json(savedBlog);

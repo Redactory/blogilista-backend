@@ -100,6 +100,20 @@ describe('async/await harjoittelua', () => {
     expect(response.body.likes).toBe(0);
     done();
   });
+
+  test('Return status 400 if title- and url - fields are missing', async (done) => {
+    const newBlog = {
+      author: 'Sari Suominen',
+      likes: 5,
+    };
+
+    const response = await api
+      .post('/api/blogs', newBlog)
+      .send(newBlog);
+
+    expect(response.status).toBe(400);
+    done();
+  });
 });
 
 afterAll(async () => {
