@@ -162,6 +162,55 @@ describe('async/await harjoittelua', () => {
     expect(response.body.message).toEqual('Poistettavaa blogia ei löydetty.');
     done();
   });
+
+  test('update an existing blog with proper ID', async (done) => {
+    const updateInformation = {
+      title: 'Martin Päivikirja',
+      author: 'Roger Ekholm',
+      url: 'www.hs.fi',
+      likes: 1,
+    };
+
+    let response = await api
+      .get('/api/blogs');
+
+    let blogToBeUpdated = response.body[0];
+    expect(blogToBeUpdated.title).toEqual('Test_1');
+    expect(blogToBeUpdated.author).toEqual('Jonathan Who');
+
+    const id = 1;
+    await Blog.findOneAndUpdate({ id }, updateInformation, { new: true });
+
+    response = await api
+      .get('/api/blogs');
+
+    blogToBeUpdated = response.body[0];
+    expect(blogToBeUpdated.title).toEqual('Martin Päivikirja');
+    expect(blogToBeUpdated.author).toEqual('Roger Ekholm');
+    done();
+  });
+
+  test('try to update a blog with an invalid ID input', async (done) => {
+    const id = '1a';
+
+    const response = await api
+      .put(`/api/blogs/${id}`);
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toEqual('Annettavan ID:n pitää olla numero.');
+    done();
+  });
+
+  test('try to update a blog with a non-existent ID input', async (done) => {
+    const id = 4;
+
+    const response = await api
+      .put(`/api/blogs/${id}`);
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toEqual('Muokattavaa blogia ei löydetty.');
+    done();
+  });
 });
 
 afterAll(async () => {

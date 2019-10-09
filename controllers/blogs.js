@@ -45,4 +45,24 @@ blogsRouter.delete('/:id', async (request, response) => {
   return response.status(200).send();
 });
 
+blogsRouter.put('/:id', async (request, response) => {
+  if (isNaN(request.params.id)) {
+    return response.status(400).send({ message: 'Annettavan ID:n pitää olla numero.' });
+  }
+
+  const id = Number(request.params.id);
+
+  const foundBlog = await Blog.find({ id });
+
+  if (foundBlog.length === 0) {
+    return response.status(404).send({ message: 'Muokattavaa blogia ei löydetty.' });
+  }
+
+  const blogData = request.body;
+  const result = await Blog
+    .findOneAndUpdate({ id }, blogData, { new: true });
+
+  return response.status(200).send(result.toJSON());
+});
+
 module.exports = blogsRouter;

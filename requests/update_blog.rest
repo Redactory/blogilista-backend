@@ -1,0 +1,9 @@
+PUT http://localhost:3003/api/blogs/81443954
+Content-Type: application/json
+
+{
+    "title": "PUT-KOKEILU",
+    "author": "EI OLE TEKIJÄÄ",
+    "url": "www.hs.fi",
+    "likes": 1
+}

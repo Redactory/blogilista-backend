@@ -5,7 +5,7 @@ const config = require('../utils/config');
 const url = config.MONGODB_URI;
 
 mongoose
-  .connect(url, { useNewUrlParser: true })
+  .connect(url, { useNewUrlParser: true, useFindAndModify: false })
   .then((result) => {
     console.log('Database connection created successfully');
   })
