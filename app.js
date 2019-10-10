@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./utils/config');
+const exceptionHandling = require('./utils/exceptionHandling');
 
 const blogsRouter = require('./controllers/blogs');
 const usersRouter = require('./controllers/users');
@@ -23,5 +24,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/blogs', blogsRouter);
 app.use('/api/users', usersRouter);
+
+app.use(exceptionHandling.userAddingErrorHandling);
 
 module.exports = app;

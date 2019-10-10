@@ -31,6 +31,7 @@ beforeEach(async () => {
 
   blockObject = new Blog(initialBlogs[1]);
   await blockObject.save();
+
 });
 
 describe('async/await harjoittelua', () => {
