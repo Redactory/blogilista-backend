@@ -1,6 +1,17 @@
 /* eslint-disable no-restricted-globals */
 const blogsRouter = require('express').Router();
+const jwt = require('jsonwebtoken');
 const Blog = require('./../models/blog');
+const User = require('../models/user');
+const config = require('../utils/config');
+
+const getTokenFrom = (request) => {
+  const authorization = request.get('authorization');
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    return authorization.substring(7);
+  }
+  return null;
+};
 
 blogsRouter.get('', async (request, response) => {
   const results = await Blog.find({});
@@ -8,24 +19,36 @@ blogsRouter.get('', async (request, response) => {
   return response.json(results);
 });
 
-blogsRouter.post('', async (request, response) => {
-  const blog = new Blog(request.body);
+blogsRouter.post('', async (request, response, next) => {
+  try {
+    const blog = new Blog(request.body);
+    const token = getTokenFrom(request);
 
-  const max = 1000000000;
-  const id = Math.floor(Math.random() * max);
-  blog.id = id;
+    if (token === null) {
+      throw { type: 'missing', kind: 'token', message: 'No token sent' };
+    }
 
-  if (typeof blog.likes === 'undefined') {
-    blog.likes = 0;
+    const decodedToken = jwt.verify(token, config.SECRET);
+
+    const user = await User.findOne({ id: decodedToken.id });
+    const max = 1000000000;
+    const id = Math.floor(Math.random() * max);
+    blog.id = id;
+    blog.author = user.name;
+
+    if (typeof blog.likes === 'undefined') {
+      blog.likes = 0;
+    }
+
+    if (typeof blog.title === 'undefined' && typeof blog.url === 'undefined') {
+      return response.status(400).send();
+    }
+
+    const savedBlog = await blog.save();
+    response.status(201).json(savedBlog);
+  } catch (error) {
+    next(error);
   }
-
-  if (typeof blog.title === 'undefined' && typeof blog.url === 'undefined') {
-    return response.status(400).send();
-  }
-
-  const savedBlog = await blog.save();
-
-  response.status(201).json(savedBlog);
 });
 
 blogsRouter.delete('/:id', async (request, response) => {

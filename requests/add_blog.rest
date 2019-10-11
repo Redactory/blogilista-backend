@@ -1,5 +1,6 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlZW1hdCIsImlkIjoxMjMzNTMxODgsImlhdCI6MTU3MDc4MDcwOX0.rlUna8OBS4D55z-XZeY9gquxr_FWo7adfxb1J9jXr84
 
 {
     "title": "Tieto",

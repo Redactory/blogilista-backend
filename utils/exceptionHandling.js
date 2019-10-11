@@ -1,4 +1,13 @@
 const userAddingErrorHandling = (error, request, response, next) => {
+  console.log(error);
+  if (error.message === 'invalid signature') {
+    return response.status(400).json({ message: 'Token ei ole validi' });
+  }
+
+  if (error.type === 'missing' && error.kind === 'token') {
+    return response.status(400).json({ message: error.message });
+  }
+
   if (error.type === 'notFound' && error.kind === 'user') {
     return response.status(401).json({ message: error.message });
   }
